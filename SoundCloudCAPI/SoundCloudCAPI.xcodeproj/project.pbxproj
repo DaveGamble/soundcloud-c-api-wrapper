@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		55FBF0BF0FEC441D00542211 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FBF0BE0FEC441D00542211 /* libcurl.dylib */; };
+		55FBF0C70FEC449600542211 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FBF0C60FEC449600542211 /* libcrypto.dylib */; };
+		55FBF0D50FEC450E00542211 /* oauth.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF0CF0FEC450E00542211 /* oauth.c */; };
+		55FBF0D70FEC450E00542211 /* oauth_http.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF0D10FEC450E00542211 /* oauth_http.c */; };
+		55FBF0D80FEC450E00542211 /* xmalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF0D20FEC450E00542211 /* xmalloc.c */; };
+		55FBF0DE0FEC457100542211 /* SoundCloudCAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FBF0DD0FEC457100542211 /* SoundCloudCAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55FBF0F50FEC4FC800542211 /* SoundCloudCAPI_Configuration.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF0F40FEC4FC800542211 /* SoundCloudCAPI_Configuration.c */; };
+		55FBF1840FED5CDA00542211 /* SoundCloudCAPI_Auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF1830FED5CDA00542211 /* SoundCloudCAPI_Auth.c */; };
+		55FBF18E0FED5D9800542211 /* SoundCloudCAPI_CreateDestroy.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF18D0FED5D9800542211 /* SoundCloudCAPI_CreateDestroy.c */; };
+		55FBF1910FED5DB400542211 /* SoundCloudCAPI_PerformMethod.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF1900FED5DB400542211 /* SoundCloudCAPI_PerformMethod.c */; };
+		55FBF21F0FED76D100542211 /* SoundCloudMacDefaultAuthCallback.c in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF21E0FED76D100542211 /* SoundCloudMacDefaultAuthCallback.c */; };
+		55FBF24B0FED7D4B00542211 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FBF24A0FED7D4B00542211 /* Security.framework */; };
+		8D07F2C40486CC7A007CD1D0 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		32BAE0B70371A74B00C91783 /* SoundCloudCAPI_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudCAPI_Prefix.pch; sourceTree = "<group>"; };
+		55B5841C103EE47F00241DE7 /* SoundCloudWinDefaultAuthCallback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudWinDefaultAuthCallback.c; sourceTree = SOURCE_ROOT; };
+		55FBF0BE0FEC441D00542211 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		55FBF0C60FEC449600542211 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		55FBF0CF0FEC450E00542211 /* oauth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oauth.c; path = Outsourced/liboauth/oauth.c; sourceTree = SOURCE_ROOT; };
+		55FBF0D00FEC450E00542211 /* oauth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oauth.h; path = Outsourced/liboauth/oauth.h; sourceTree = SOURCE_ROOT; };
+		55FBF0D10FEC450E00542211 /* oauth_http.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oauth_http.c; path = Outsourced/liboauth/oauth_http.c; sourceTree = SOURCE_ROOT; };
+		55FBF0D20FEC450E00542211 /* xmalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xmalloc.c; path = Outsourced/liboauth/xmalloc.c; sourceTree = SOURCE_ROOT; };
+		55FBF0D30FEC450E00542211 /* xmalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xmalloc.h; path = Outsourced/liboauth/xmalloc.h; sourceTree = SOURCE_ROOT; };
+		55FBF0DA0FEC451D00542211 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = Outsourced/liboauth/config.h; sourceTree = SOURCE_ROOT; };
+		55FBF0DD0FEC457100542211 /* SoundCloudCAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudCAPI.h; sourceTree = "<group>"; };
+		55FBF0F20FEC4F1E00542211 /* SoundCloudCAPI_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundCloudCAPI_Internal.h; sourceTree = "<group>"; };
+		55FBF0F40FEC4FC800542211 /* SoundCloudCAPI_Configuration.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudCAPI_Configuration.c; sourceTree = "<group>"; };
+		55FBF1830FED5CDA00542211 /* SoundCloudCAPI_Auth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudCAPI_Auth.c; sourceTree = "<group>"; };
+		55FBF18D0FED5D9800542211 /* SoundCloudCAPI_CreateDestroy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudCAPI_CreateDestroy.c; sourceTree = "<group>"; };
+		55FBF1900FED5DB400542211 /* SoundCloudCAPI_PerformMethod.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudCAPI_PerformMethod.c; sourceTree = "<group>"; };
+		55FBF21E0FED76D100542211 /* SoundCloudMacDefaultAuthCallback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SoundCloudMacDefaultAuthCallback.c; sourceTree = "<group>"; };
+		55FBF24A0FED7D4B00542211 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
+		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D07F2C80486CC7A007CD1D0 /* SoundCloudCAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SoundCloudCAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D07F2C30486CC7A007CD1D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D07F2C40486CC7A007CD1D0 /* Carbon.framework in Frameworks */,
+				55FBF0BF0FEC441D00542211 /* libcurl.dylib in Frameworks */,
+				55FBF0C70FEC449600542211 /* libcrypto.dylib in Frameworks */,
+				55FBF24B0FED7D4B00542211 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D07F2C80486CC7A007CD1D0 /* SoundCloudCAPI.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* SoundCloudCAPI */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF09F0FEC42CD00542211 /* Outsourced */,
+				08FB77ACFE841707C02AAC07 /* Source */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+			);
+			name = SoundCloudCAPI;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF24A0FED7D4B00542211 /* Security.framework */,
+				55FBF0C60FEC449600542211 /* libcrypto.dylib */,
+				55FBF0BE0FEC441D00542211 /* libcurl.dylib */,
+				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D07F2C70486CC7A007CD1D0 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF1870FED5D0D00542211 /* Headers */,
+				55FBF1880FED5D1B00542211 /* Source */,
+				55FBF21A0FED764800542211 /* Mac */,
+				55B58415103EE46000241DE7 /* Win */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		55B58415103EE46000241DE7 /* Win */ = {
+			isa = PBXGroup;
+			children = (
+				55B5841C103EE47F00241DE7 /* SoundCloudWinDefaultAuthCallback.c */,
+			);
+			name = Win;
+			sourceTree = "<group>";
+		};
+		55FBF09F0FEC42CD00542211 /* Outsourced */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF0CD0FEC450E00542211 /* liboauth */,
+			);
+			name = Outsourced;
+			sourceTree = "<group>";
+		};
+		55FBF0CD0FEC450E00542211 /* liboauth */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF0DA0FEC451D00542211 /* config.h */,
+				55FBF0CF0FEC450E00542211 /* oauth.c */,
+				55FBF0D00FEC450E00542211 /* oauth.h */,
+				55FBF0D10FEC450E00542211 /* oauth_http.c */,
+				55FBF0D20FEC450E00542211 /* xmalloc.c */,
+				55FBF0D30FEC450E00542211 /* xmalloc.h */,
+			);
+			name = liboauth;
+			path = Outsourced/liboauth;
+			sourceTree = SOURCE_ROOT;
+		};
+		55FBF1870FED5D0D00542211 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF0DD0FEC457100542211 /* SoundCloudCAPI.h */,
+				55FBF0F20FEC4F1E00542211 /* SoundCloudCAPI_Internal.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		55FBF1880FED5D1B00542211 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF1830FED5CDA00542211 /* SoundCloudCAPI_Auth.c */,
+				55FBF0F40FEC4FC800542211 /* SoundCloudCAPI_Configuration.c */,
+				55FBF18D0FED5D9800542211 /* SoundCloudCAPI_CreateDestroy.c */,
+				55FBF1900FED5DB400542211 /* SoundCloudCAPI_PerformMethod.c */,
+				32BAE0B70371A74B00C91783 /* SoundCloudCAPI_Prefix.pch */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		55FBF21A0FED764800542211 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				55FBF21E0FED76D100542211 /* SoundCloudMacDefaultAuthCallback.c */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8D07F2BD0486CC7A007CD1D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55FBF0DE0FEC457100542211 /* SoundCloudCAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D07F2BC0486CC7A007CD1D0 /* SoundCloudCAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "SoundCloudCAPI" */;
+			buildPhases = (
+				8D07F2BD0486CC7A007CD1D0 /* Headers */,
+				8D07F2BF0486CC7A007CD1D0 /* Resources */,
+				8D07F2C10486CC7A007CD1D0 /* Sources */,
+				8D07F2C30486CC7A007CD1D0 /* Frameworks */,
+				8D07F2C50486CC7A007CD1D0 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SoundCloudCAPI;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = SoundCloudCAPI;
+			productReference = 8D07F2C80486CC7A007CD1D0 /* SoundCloudCAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "SoundCloudCAPI" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* SoundCloudCAPI */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D07F2BC0486CC7A007CD1D0 /* SoundCloudCAPI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D07F2BF0486CC7A007CD1D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8D07F2C50486CC7A007CD1D0 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D07F2C10486CC7A007CD1D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55FBF0D50FEC450E00542211 /* oauth.c in Sources */,
+				55FBF0D70FEC450E00542211 /* oauth_http.c in Sources */,
+				55FBF0D80FEC450E00542211 /* xmalloc.c in Sources */,
+				55FBF0F50FEC4FC800542211 /* SoundCloudCAPI_Configuration.c in Sources */,
+				55FBF1840FED5CDA00542211 /* SoundCloudCAPI_Auth.c in Sources */,
+				55FBF18E0FED5D9800542211 /* SoundCloudCAPI_CreateDestroy.c in Sources */,
+				55FBF1910FED5DB400542211 /* SoundCloudCAPI_PerformMethod.c in Sources */,
+				55FBF21F0FED76D100542211 /* SoundCloudMacDefaultAuthCallback.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4FADC24308B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SoundCloudCAPI_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = SoundCloudCAPI;
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		4FADC24408B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = SoundCloudCAPI_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = SoundCloudCAPI;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		4FADC24708B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		4FADC24808B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "SoundCloudCAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24308B4156D00ABE55E /* Debug */,
+				4FADC24408B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "SoundCloudCAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24708B4156D00ABE55E /* Debug */,
+				4FADC24808B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
