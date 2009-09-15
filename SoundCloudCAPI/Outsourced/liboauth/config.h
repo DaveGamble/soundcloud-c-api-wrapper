@@ -44,6 +44,9 @@
 /* Define to 1 if you have the <openssl/hmac.h> header file. */
 #define HAVE_OPENSSL_HMAC_H 1
 
+/* Define if you can invoke curl via a shell command. */
+#define HAVE_SHELL_CURL 1
+
 /* Define to 1 if you have the <stdarg.h> header file. */
 #define HAVE_STDARG_H 1
 
@@ -62,7 +65,7 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
-/* Define to 1 if `st_blocks' is member of `struct stat'. */
+/* Define to 1 if `struct stat' is a member of `st_blocks'. */
 #define HAVE_STRUCT_STAT_ST_BLOCKS 1
 
 /* Define to 1 if your `struct stat' has `st_blocks'. Deprecated, use
@@ -119,6 +122,9 @@
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "liboauth"
 
+/* Define to the home page for this package. */
+#define PACKAGE_URL ""
+
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "-"
 
@@ -140,4 +146,4 @@
 /* #undef USE_LGPL */
 
 /* Version number of package */
-#define VERSION "0.5.3"
+#define VERSION "0.6.0"

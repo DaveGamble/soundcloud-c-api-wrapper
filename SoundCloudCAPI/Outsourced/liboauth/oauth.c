@@ -26,13 +26,11 @@
  * THE SOFTWARE.
  * 
  */
-#define HAVE_CONFIG_H 1
 #if HAVE_CONFIG_H
 # include <config.h>
 #endif
 
 #define WIPE_MEMORY ///< overwrite sensitve data before free()ing it.
-
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -45,7 +43,7 @@
 #include "xmalloc.h"
 #include "oauth.h"
 
-#ifndef WIN // getpid() on POSIX systems
+#ifndef WIN32 // getpid() on POSIX systems
 #include <sys/types.h>
 #include <unistd.h>
 #else
@@ -619,7 +617,7 @@ char *oauth_gen_nonce() {
   int i, len;
 
   if(rndinit) {srand(time(NULL) 
-#ifndef WIN // quick windows check.
+#ifndef WIN32 // quick windows check.
   	* getpid()
 #endif
 	); rndinit=0;} // seed random number generator - FIXME: we can do better ;)
