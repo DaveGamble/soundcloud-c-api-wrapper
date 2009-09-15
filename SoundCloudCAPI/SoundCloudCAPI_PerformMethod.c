@@ -82,7 +82,7 @@ static int ConstructStringsForMethod(SoundCloudCAPI *api,const char* httpMethod,
 	// Add the suffix to request the response format
 	tail=suffix+sprintf(suffix,".%s",(api->responseFormat)?"js":"xml");
 	// Append the access method
-	tail+=sprintf(tail,"?_method=%s",httpMethod);
+//	tail+=sprintf(tail,"?_method=%s",httpMethod);
 	// Unsigned URL is complete.
 	
 	// Generate a boundary and header for any multipart we have.
@@ -95,8 +95,8 @@ static int ConstructStringsForMethod(SoundCloudCAPI *api,const char* httpMethod,
 	if (!datalen) {free(headerstring);headerstring=(char*)malloc(1);*headerstring=0;}	// don't use a multipart header if we don't have actual data.
 
 	// Sign the URL.
+	sc_log(api,SoundCloudCAPI_LogLevel_Debug,"Signing url [%s], method [%s], with [%s][%s][%s][%s]\n",newurl,httpMethod,api->consumerKey,api->consumerSecret,api->t_key,api->t_secret);
 	sigurl = oauth_sign_url2(newurl, &postargs, OA_HMAC, httpMethod, api->consumerKey, api->consumerSecret, api->t_key, api->t_secret);
-	
 	
 	// Concatenate the post args onto the url.
 	signed_url=(char*)malloc(2+strlen(sigurl)+strlen(postargs));sprintf(signed_url,"%s?%s",sigurl,postargs);
@@ -120,7 +120,7 @@ int SoundCloudCAPI_performMethod(SoundCloudCAPI *api,const char* httpMethod,cons
 
 	if (err) return err;	// might have to bail early.
 	
-	reply = oauth_post_data(url,body,bodylen,*header?header:0);
+	reply = oauth_send_data(url,body,bodylen,*header?header:0,httpMethod);
 	*data=reply;
 	*size_recv=strlen(reply);
 
@@ -151,7 +151,7 @@ SoundCloudCAPI_thread(void *data)
 
 	if (!thread->callback)	// if no callback, try and send it off.
 	{
-		if (!thread->error)	oauth_post_data(thread->url,thread->body,thread->bodylen,thread->header);
+		if (!thread->error)	oauth_send_data(thread->url,thread->body,thread->bodylen,thread->header,thread->httpMethod);
 	}
 	else
 	{	char *reply; long long len;
@@ -159,14 +159,14 @@ SoundCloudCAPI_thread(void *data)
 		// If we failed in setup, bail early.
 		if (thread->error) {thread->callback(thread->api,SoundCloudCAPICallback_didFailWithError,thread->error,0,0,0,thread->callback_data);return 0;}
 		
-		reply = oauth_curl_post_data_with_callback(thread->url,thread->body,thread->bodylen,thread->header[0]?thread->header:0,oauth_data_callback,thread);
+		reply = oauth_send_data_with_callback(thread->url,thread->body,thread->bodylen,thread->header[0]?thread->header:0,oauth_data_callback,thread,thread->httpMethod);
 		len=strlen(reply);
 		
 		thread->callback(thread->api,SoundCloudCAPICallback_didFinishWithData,0,reply,len,len,thread->callback_data);		
 	}
 
 	// Cleanup
-	free(thread->url);free(thread->header);if (thread->body) free(thread->body);free(thread);
+	free(thread->url);free(thread->header);if (thread->body) free(thread->body);if (thread->httpMethod) free(thread->httpMethod); free(thread);
 	
 	return 0;
 }
@@ -177,6 +177,7 @@ void SoundCloudCAPI_performMethodWithCallback(SoundCloudCAPI *api,const char* ht
 	thread_data->api=api;
 	thread_data->callback=callback;
 	thread_data->callback_data=userData;
+	thread_data->httpMethod=sc_strdup(httpMethod);
 
 	thread_data->error=ConstructStringsForMethod(api,httpMethod,resource,parameters,num_params,&thread_data->url,&thread_data->body,&thread_data->bodylen,&thread_data->header);
 

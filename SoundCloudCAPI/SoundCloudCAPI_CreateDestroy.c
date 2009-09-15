@@ -22,6 +22,7 @@ SoundCloudCAPI *SoundCloudCAPI_Create(const char *consumerKey,const char *consum
 	c->t_type=0;
 	
 	c->userAuthURL=0;
+	c->verifier=0;
 	
 	SoundCloudCAPI_CreateFor(c,consumerKey,consumerSecret,callbackURL,productionType);
 	
@@ -56,6 +57,7 @@ void SoundCloudCAPI_Delete(SoundCloudCAPI *api)
 	if (api->consumerKey)	free(api->consumerKey);
 	if (api->consumerSecret)free(api->consumerSecret);
 	if (api->callbackURL)	free(api->callbackURL);
+	if (api->verifier)		free(api->verifier);
 	free(api);
 }
 
@@ -68,7 +70,7 @@ void sc_log(SoundCloudCAPI *api,int level,const char *format,...)
 {
 	va_list vargs;
 	va_start(vargs,format);
-	if (level<=api->log_level)
+	if (!api || level<=api->log_level)
 	{
 		vfprintf(stderr,format,vargs);
 	}

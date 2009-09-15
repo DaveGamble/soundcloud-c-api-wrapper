@@ -14,6 +14,7 @@ struct _SoundCloudCAPI
 
 	char *credentials;
 	char *userAuthURL;
+	char *verifier;
 	
 	char *t_key,*t_secret;
 	int t_type;
@@ -25,7 +26,7 @@ struct _SoundCloudCAPI
 	const char *requestTokenURL;
 	const char *accessTokenURL;
 	const char *authURL;
-	
+
 	char *consumerKey;
 	char *consumerSecret;
 	char *callbackURL;
@@ -41,6 +42,7 @@ typedef struct
 	char *url;
 	char *header;
 	char *body;
+	char *httpMethod;
 	size_t bodylen;
 	long error;
 	

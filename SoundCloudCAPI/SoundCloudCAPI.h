@@ -37,6 +37,7 @@ API_EXTERN void SoundCloudCAPI_RemoveCredentials(SoundCloudCAPI *api);							// 
 // Call EvaluateCredentials to proceed with authorization.
 API_EXTERN int  SoundCloudCAPI_EvaluateCredentials(SoundCloudCAPI *api);						// Evaluate credential status
 API_EXTERN const char *SoundCloudCAPI_GetUserAuthorizationURL(SoundCloudCAPI *api);			// If user needs to authorize app access, this gives you the URL they must visit
+API_EXTERN void SoundCloudCAPI_SetVerifier(SoundCloudCAPI *api,const char *verifier);		// When user has authorized, they (or the callback) are given the verifier code, which you need to supply here.
 // Authentication status (return code from EvaluateCredentials):
 #define SCAuthenticationStatus_ErrorCouldNotRequest		3	// No credential, or a request token was supplied. Could not connect to the server to proceed.
 #define SCAuthenticationStatus_UserMustAuthorize		2	// Got a request token from the server, and the user must follow the link to auth. Call GetUserAuthenticationURL.

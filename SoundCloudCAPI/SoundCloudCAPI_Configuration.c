@@ -22,7 +22,8 @@ static void SetKeys(SoundCloudCAPI *config,const char *consumerKey,const char* c
 {
 	config->consumerKey		=sc_strdup(consumerKey);
 	config->consumerSecret	=sc_strdup(consumerSecret);
-	config->callbackURL		=sc_strdup(callbackURL);
+	if (callbackURL && strlen(callbackURL))	config->callbackURL		=sc_strdup(callbackURL);
+	else									config->callbackURL		=sc_strdup("oob");
 }
 
 static void SoundCloudCAPI_CreateForProduction(SoundCloudCAPI *c,const char *consumerKey,const char *consumerSecret,const char* callbackURL)

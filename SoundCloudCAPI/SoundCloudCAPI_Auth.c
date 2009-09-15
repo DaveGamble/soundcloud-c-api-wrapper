@@ -86,21 +86,33 @@ const char *SoundCloudCAPI_GetUserAuthorizationURL(SoundCloudCAPI *api)
 	return api->userAuthURL;
 }
 
+void SoundCloudCAPI_SetVerifier(SoundCloudCAPI *api, const char *verifier)
+{
+	if (api->verifier) free(api->verifier);
+	api->verifier=sc_strdup(verifier);
+}
+
 // Subroutines for the AUTH code:
 #define EV_RETURN(x)     {if (api->authDelegate) {(*api->authDelegate)(api,(x),api->authDelegateData);return SCAuthenticationStatus_WillCallback;}else return (x);}
 #define EV_RETURNBOTH(x) {if (api->authDelegate) {(*api->authDelegate)(api,(x),api->authDelegateData);}return (x&255);}
 
-static int parse_reply(char *reply, char **token, char **secret)	// Taken from oauthexample.c from liboauth. Very slick style.
+static int parse_reply(char *reply, char **token, char **secret,int request)	// Taken from oauthexample.c from liboauth. Very slick style.
 {
 	int rc,failed=1;char **rv = NULL;
 
 	rc = oauth_split_url_parameters(reply, &rv);
 	qsort(rv, rc, sizeof(char *), oauth_cmpstringp);
-	if( rc==2 && !strncmp(rv[0],"oauth_token=",11) && !strncmp(rv[1],"oauth_token_secret=",18) )
+	if( rc==2 && !strncmp(rv[0],"oauth_token=",11) && !strncmp(rv[1],"oauth_token_secret=",18) && !request)
 	{
 		failed=0;
 		if (token)  *token =sc_strdup(&(rv[0][12]));
 		if (secret) *secret=sc_strdup(&(rv[1][19]));
+	}
+	if( rc==3 && !strncmp(rv[0],"oauth_callback_confirmed=true",29) && !strncmp(rv[1],"oauth_token=",11) && !strncmp(rv[2],"oauth_token_secret=",18) && request)
+	{
+		failed=0;
+		if (token)  *token =sc_strdup(&(rv[1][12]));
+		if (secret) *secret=sc_strdup(&(rv[2][19]));
 	}
 	if(rv) free(rv);
 	if(reply) free(reply);
@@ -112,7 +124,7 @@ static void BuildUserAuthURL(SoundCloudCAPI *api)
 {
 	char *temp;size_t urllen;
 	// if we have a callback url, escape it:
-	if (api->callbackURL) temp=oauth_url_escape(api->callbackURL); else temp=0;
+	if (api->callbackURL) temp=oauth_url_escape(api->callbackURL); else temp=sc_strdup("oob");
 	// how long is the new url?
 	urllen=strlen(api->authURL)+14+strlen(api->t_key);
 	if (temp) urllen+=16+strlen(temp);	// add on callback if needs be
@@ -149,20 +161,24 @@ static void updatekeys(SoundCloudCAPI *api,int newtype,char *newkey,char *newsec
 // Whenever you get a CredentialsHaveChanged, it's a good idea to store them to secure-storage.
 int  SoundCloudCAPI_EvaluateCredentials(SoundCloudCAPI *api)
 {
-	char *postargs,*url,*reply,*newkey,*newsecret;int ret=0;
-	int tryAndSeeIfWeAreAlreadyAuthorizedOnThisServer=1;	// TODO: Decide whether this should be true or false.
+	char *postargs,*url,*reply,*newkey,*newsecret,*requrl,*accurl;int ret=0;
+	int tryAndSeeIfWeAreAlreadyAuthorizedOnThisServer=0;	// TODO: Decide whether this should be true or false.
 	switch (api->t_type)	// what type do we have now.
 	{
 	case 0:	// no authentication at all. Send request to server.
 		// Get a signed URL to request authorisation
-		url = oauth_sign_url2(api->requestTokenURL, &postargs, OA_HMAC, 0, api->consumerKey, api->consumerSecret, NULL, NULL);
+		requrl=malloc(strlen(api->requestTokenURL)+strlen(api->callbackURL)+20);	// 1.0a, build callback url into request token
+		sprintf(requrl,"%s?oauth_callback=%s",api->requestTokenURL,strlen(api->callbackURL)?api->callbackURL:"oob");
+		url = oauth_sign_url2(requrl, &postargs, OA_HMAC, 0, api->consumerKey, api->consumerSecret, NULL, NULL);
+		sc_log(api,SoundCloudCAPI_LogLevel_Debug,"Request: [%s?%s]\n",url,postargs);
+		free(requrl);
 		// Send to server: (TODO: Make this asynch!!)
 		reply = oauth_http_post(url,postargs);
 		// Process results: Free temps, parse the reply.
 		if (url) free(url); if (postargs) free(postargs);	// clear temps.
 		if (api->t_key) {free(api->t_key);api->t_key=0;}	// these MUST be NULL!
 		if (api->t_secret) {free(api->t_secret);api->t_secret=0;}
-		if (!reply || parse_reply(reply,&newkey,&newsecret)) {EV_RETURN(SCAuthenticationStatus_ErrorCouldNotRequest);}
+		if (!reply || parse_reply(reply,&newkey,&newsecret,1)) {EV_RETURN(SCAuthenticationStatus_ErrorCouldNotRequest);}
 		// Wooh! New credentials! Form the user auth URL, and return the good news!
 		updatekeys(api,1,newkey,newsecret,&ret);	// We have a request token!!
 			
@@ -173,14 +189,18 @@ int  SoundCloudCAPI_EvaluateCredentials(SoundCloudCAPI *api)
 		if (!tryAndSeeIfWeAreAlreadyAuthorizedOnThisServer)	EV_RETURN(SCAuthenticationStatus_UserMustAuthorize|ret);
 	case 1:	// we have a request token. Can we turn it into an access token?
 		// Sign the access url with our request token
-		url = oauth_sign_url2(api->accessTokenURL, &postargs, OA_HMAC, 0, api->consumerKey, api->consumerSecret, api->t_key, api->t_secret);
+		accurl=malloc(strlen(api->accessTokenURL)+(api->verifier?strlen(api->verifier):0)+20);
+		sprintf(accurl,"%s?oauth_verifier=%s",api->accessTokenURL,api->verifier?api->verifier:"");
+		url = oauth_sign_url2(accurl, &postargs, OA_HMAC, 0, api->consumerKey, api->consumerSecret, api->t_key, api->t_secret);
+		sc_log(api,SoundCloudCAPI_LogLevel_Debug,"Access: [%s?%s]\n",url,postargs);
+		free(accurl);
 		// Off we go... (TODO: Make this asynch!!)
 		reply = oauth_http_post(url,postargs);
 		// Process results...
 		if (url) free(url); if (postargs) free(postargs);
 		// Did it work? (parse to new pointers to preserve old keys...)
 		if (!reply)	EV_RETURN(SCAuthenticationStatus_ErrorCouldNotAccess|ret);	// If no reply, server is dead.
-		if (parse_reply(reply,&newkey,&newsecret))	{BuildUserAuthURL(api);EV_RETURN(SCAuthenticationStatus_UserMustAuthorize|ret);} // If wrong reply, user prob hasn't authed.
+		if (parse_reply(reply,&newkey,&newsecret,0))	{BuildUserAuthURL(api);EV_RETURN(SCAuthenticationStatus_UserMustAuthorize|ret);} // If wrong reply, user prob hasn't authed.
 
 		updatekeys(api,2,newkey,newsecret,&ret);	// we got the access token!!
 			

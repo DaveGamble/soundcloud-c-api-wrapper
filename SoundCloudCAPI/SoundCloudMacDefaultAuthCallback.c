@@ -25,8 +25,6 @@ void SoundCloudCAPI_DefaultAuthenticationSave(SoundCloudCAPI *api)
 	if (status) status=SecKeychainAddGenericPassword(NULL,strlen(name),name,strlen(service),service,strlen(data),data,0);
 	else		{status=SecKeychainItemModifyAttributesAndData(ref,NULL,strlen(data),data);CFRelease(ref);}
 	if (status)	sc_log(api,SoundCloudCAPI_LogLevel_Errors,"Failed to save token, with err: %d\n",status);
-	
-	CFRelease(bundleName);
 }
 
 
@@ -49,7 +47,6 @@ void SoundCloudCAPI_DefaultAuthenticationLoad(SoundCloudCAPI *c)
 		free(buffer);
 		SecKeychainItemFreeContent(NULL,data);
 	}
-	CFRelease(bundleName);
 }
 
 
