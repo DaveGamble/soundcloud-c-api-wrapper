@@ -92,6 +92,16 @@
 	NSString *urlStr = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	
 	if([urlStr hasPrefix:kNSCallbackURL]) {
+		const char *str=[urlStr UTF8String];
+		const char *verify=strstr(str,"oauth_verifier=");
+		if (verify)
+		{
+			char buff[256];char *ptr=buff;
+			verify+=15;
+			while (*verify!='&' && *verify) *ptr++=*verify++;
+			*ptr=0;
+			SoundCloudCAPI_SetVerifier(scAPI, buff);
+		}
 		NSLog(@"handling oauth callback");
 		SoundCloudCAPI_EvaluateCredentials(scAPI);	// Looks like the user AUTHed, let's go!
 	}
